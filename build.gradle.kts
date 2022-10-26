@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.10"
     id("io.kotless") version "0.2.0"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 group = "org.example"
@@ -18,6 +19,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("io.kotless", "kotless-lang", "0.2.0")
     implementation("io.kotless", "kotless-lang-aws", "0.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 }
 
 tasks.test {
@@ -25,7 +27,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 // import io.kotless.plugin.gradle.dsl.kotless
