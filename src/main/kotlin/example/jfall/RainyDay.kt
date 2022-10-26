@@ -5,7 +5,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 
 @Get("/")
-fun web() {
+fun triggerMail() : String =
   getForecast().forecast.fivedayforecast[0]
       .takeIf { it.rainChance >= 20 }
       ?.let {
@@ -21,4 +21,12 @@ fun web() {
               }
           }
       }
-}
+      ?.let {
+          Emailer.sendEmail("Take your umbrella?", it,
+              "dummy@example.com", "Apps",
+              "dummy@example.com")
+      }
+      ?.let {
+          if(it) {"email sent"} else {"sending email failed"}
+      }
+      ?: "No chance of rain"
